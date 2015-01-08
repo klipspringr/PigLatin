@@ -19,10 +19,16 @@ public class PigLatin extends PApplet {
 
 
 public void setup() {
-	String lines[] = loadStrings("words.txt");
-	System.out.println("there are " + lines.length + " lines");
-	for (int i = 0 ; i < lines.length; i++) {
-	  System.out.println(pigLatin(lines[i]));
+	String lines[] = loadStrings("LowellHymn.txt");
+	for(int i = 0; i < lines.length; i++)
+	{
+		String temp[] = lines[i].split("\\s+");
+		System.out.println(" ");
+		for(int j = 0; j < temp.length; j++)
+		{
+			System.out.print(pigLatin(temp[j]) + " ");
+			
+		}
 	}
 }
 public void draw()
@@ -33,7 +39,18 @@ public int findFirstVowel(String word){
   for(int i = 0; i < word.length(); i++)
   {
   char currentLetter = word.charAt(i);
-  if (currentLetter == 'a' || currentLetter == 'e' ||currentLetter == 'i' ||currentLetter == 'o' ||currentLetter == 'u')
+  if (currentLetter == 'a' || currentLetter == 'e' ||currentLetter == 'i' ||currentLetter == 'o' ||currentLetter == 'u'||currentLetter == 'U'||currentLetter == 'O'||currentLetter == 'A')
+  {
+  return i;
+  }
+  }
+  return -1;
+}
+public int checkPunctuation(String word){
+  for(int i = 0; i < word.length(); i++)
+  {
+  char currentLetter = word.charAt(i);
+  if (currentLetter == ',' || currentLetter == '.')
   {
   return i;
   }
@@ -71,8 +88,15 @@ public String pigLatin(String sWord)
 	// }
 	if(findFirstVowel(sWord) != -1 && findFirstVowel(sWord) != 0)
 	{
-		return sWord.substring(findFirstVowel(sWord)) + sWord.substring(0, findFirstVowel(sWord)) + "ay";
+		String temp = sWord.substring(findFirstVowel(sWord)) + sWord.substring(0, findFirstVowel(sWord)) + "ay" ;
+
+		if(checkPunctuation(sWord) != -1)
+	{
+		return temp.substring(0, checkPunctuation(temp)) + temp.substring(checkPunctuation(temp) + 1) + sWord.substring(checkPunctuation(sWord));
 	}
+		return temp;
+	}
+
 	else
 	{
 		return "ERROR!";
