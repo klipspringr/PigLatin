@@ -4,6 +4,7 @@ public void setup() {
 	String lines[] = loadStrings("LowellHymn.txt");
 	for(int i = 0; i < lines.length; i++)
 	{
+		//breaks one line in the .txt file into separate strings
 		String temp[] = lines[i].split("\\s+");
 		System.out.println(" ");
 		for(int j = 0; j < temp.length; j++)
